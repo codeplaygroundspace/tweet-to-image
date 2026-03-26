@@ -2,6 +2,10 @@ import React from "react";
 import type { QuotedTweet as QuotedTweetType } from "@/lib/tweet-types";
 import TweetMedia from "@/components/tweet-media";
 
+function proxyUrl(url: string): string {
+  return `/api/proxy?url=${encodeURIComponent(url)}`;
+}
+
 const COLORS = {
   light: {
     bg: "#f7f9f9",
@@ -46,9 +50,8 @@ export default function QuotedTweet({ tweet, mode }: QuotedTweetProps) {
         }}
       >
         <img
-          src={tweet.user.profile_image_url_https}
+          src={proxyUrl(tweet.user.profile_image_url_https)}
           alt={tweet.user.name}
-          crossOrigin="anonymous"
           style={{
             width: 20,
             height: 20,
