@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { UI_COLORS } from "@/lib/themes";
 
 interface UrlInputProps {
   onSubmit: (url: string) => void;
@@ -12,6 +13,7 @@ interface UrlInputProps {
 export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInputProps) {
   const [url, setUrl] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (defaultValue && !mounted) {
@@ -27,6 +29,8 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
     }
   }
 
+  const disabled = loading || !url.trim();
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -37,8 +41,8 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
           display: "flex",
           alignItems: "center",
           gap: 8,
-          background: "#f7f9f9",
-          border: "1px solid #e5e5e5",
+          background: UI_COLORS.white,
+          border: `1px solid ${UI_COLORS.secondaryBorder}`,
           borderRadius: 12,
           padding: "8px 12px",
         }}
@@ -49,7 +53,7 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
           height="20"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#536471"
+          stroke={UI_COLORS.textLight}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -71,24 +75,27 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
             background: "transparent",
             outline: "none",
             fontSize: 14,
-            color: "#0f1419",
+            color: UI_COLORS.text,
           }}
         />
 
         <button
           type="submit"
-          disabled={loading || !url.trim()}
+          disabled={disabled}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
-            background: loading || !url.trim() ? "#536471" : "#0f1419",
-            color: "#fff",
-            border: "none",
-            borderRadius: 8,
+            background: disabled ? UI_COLORS.secondaryBg : "#f2f2f2",
+            color: disabled ? UI_COLORS.textLight : hovered ? UI_COLORS.primary : UI_COLORS.secondary,
+            border: `1px solid ${disabled ? UI_COLORS.secondaryBorder : UI_COLORS.secondaryBorder}`,
+            borderRadius: 9999,
             padding: "8px 20px",
             fontSize: 14,
             fontWeight: 600,
-            cursor: loading || !url.trim() ? "not-allowed" : "pointer",
+            cursor: disabled ? "not-allowed" : "pointer",
             whiteSpace: "nowrap",
-            opacity: loading || !url.trim() ? 0.6 : 1,
+            opacity: disabled ? 0.6 : 1,
+            transition: "color 0.15s, border-color 0.15s",
           }}
         >
           {loading ? "Loading..." : "Generate"}
@@ -96,7 +103,7 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
       </div>
 
       {error && (
-        <p style={{ color: "#e0245e", fontSize: 13, marginTop: 8, paddingLeft: 4 }}>
+        <p style={{ color: UI_COLORS.error, fontSize: 13, marginTop: 8, paddingLeft: 4 }}>
           {error}
         </p>
       )}

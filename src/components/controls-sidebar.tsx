@@ -1,6 +1,6 @@
 "use client";
 
-import { THEME_PRESETS, type CustomSettings } from "@/lib/themes";
+import { THEME_PRESETS, UI_COLORS, type CustomSettings } from "@/lib/themes";
 
 interface ControlsSidebarProps {
   settings: CustomSettings;
@@ -11,7 +11,7 @@ const sectionLabel: React.CSSProperties = {
   fontSize: 12,
   fontWeight: 600,
   textTransform: "uppercase",
-  color: "#536471",
+  color: UI_COLORS.textMuted,
   letterSpacing: "0.05em",
   marginBottom: 8,
 };
@@ -38,8 +38,8 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
                 background: preset.background,
                 border:
                   settings.theme.id === preset.id
-                    ? "2px solid #1d9bf0"
-                    : "2px solid #e5e5e5",
+                    ? `2px solid ${UI_COLORS.primary}`
+                    : `2px solid ${UI_COLORS.secondaryBorder}`,
                 borderRadius: 8,
                 cursor: "pointer",
                 outline: "none",
@@ -68,12 +68,12 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
                 cursor: "pointer",
                 border:
                   settings.theme.tweetMode === mode
-                    ? "1px solid #1d9bf0"
-                    : "1px solid #e5e5e5",
+                    ? `1px solid ${UI_COLORS.primary}`
+                    : `1px solid ${UI_COLORS.secondaryBorder}`,
                 background:
-                  settings.theme.tweetMode === mode ? "#e8f5fd" : "#fff",
+                  settings.theme.tweetMode === mode ? UI_COLORS.secondaryBg : UI_COLORS.white,
                 color:
-                  settings.theme.tweetMode === mode ? "#1d9bf0" : "#0f1419",
+                  settings.theme.tweetMode === mode ? UI_COLORS.primary : UI_COLORS.text,
               }}
             >
               {mode === "light" ? "Light" : "Dark"}
@@ -93,7 +93,7 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
             style={{
               width: 36,
               height: 36,
-              border: "1px solid #e5e5e5",
+              border: `1px solid ${UI_COLORS.secondaryBorder}`,
               borderRadius: 6,
               cursor: "pointer",
               padding: 2,
@@ -104,7 +104,7 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
               onClick={() => update({ customBackground: null })}
               style={{
                 fontSize: 12,
-                color: "#536471",
+                color: UI_COLORS.textMuted,
                 background: "none",
                 border: "none",
                 cursor: "pointer",
@@ -180,10 +180,10 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
                 cursor: "pointer",
                 border:
                   settings.scale === s
-                    ? "1px solid #1d9bf0"
-                    : "1px solid #e5e5e5",
-                background: settings.scale === s ? "#e8f5fd" : "#fff",
-                color: settings.scale === s ? "#1d9bf0" : "#0f1419",
+                    ? `1px solid ${UI_COLORS.primary}`
+                    : `1px solid ${UI_COLORS.secondaryBorder}`,
+                background: settings.scale === s ? UI_COLORS.secondaryBg : UI_COLORS.white,
+                color: settings.scale === s ? UI_COLORS.primary : UI_COLORS.text,
               }}
             >
               {s}x

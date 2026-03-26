@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { THEME_PRESETS, type CustomSettings, type ThemePreset } from "@/lib/themes";
+import { THEME_PRESETS, UI_COLORS, type CustomSettings, type ThemePreset } from "@/lib/themes";
 
 const checkerboard = "repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 8px 8px";
 
@@ -40,7 +40,7 @@ function Toggle({
         height: 20,
         borderRadius: 10,
         border: "none",
-        background: checked ? "#1d9bf0" : "#ccc",
+        background: checked ? UI_COLORS.primary : "#ccc",
         cursor: "pointer",
         position: "relative",
         transition: "background 0.2s",
@@ -53,7 +53,7 @@ function Toggle({
           width: 14,
           height: 14,
           borderRadius: 7,
-          background: "#fff",
+          background: UI_COLORS.white,
           position: "absolute",
           top: 3,
           left: checked ? 19 : 3,
@@ -94,13 +94,13 @@ function ThemeDropdown({
           alignItems: "center",
           gap: 8,
           background: "transparent",
-          border: "1px solid #e5e5e5",
+          border: `1px solid ${UI_COLORS.secondaryBorder}`,
           borderRadius: 8,
           padding: "6px 12px",
           cursor: "pointer",
           fontSize: 13,
           fontWeight: 500,
-          color: "#0f1419",
+          color: UI_COLORS.text,
           minWidth: 140,
         }}
       >
@@ -111,7 +111,7 @@ function ThemeDropdown({
           height="12"
           viewBox="0 0 12 12"
           fill="none"
-          stroke="#536471"
+          stroke={UI_COLORS.textMuted}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -128,8 +128,8 @@ function ThemeDropdown({
             bottom: "100%",
             left: 0,
             marginBottom: 6,
-            background: "#fff",
-            border: "1px solid #e5e5e5",
+            background: UI_COLORS.white,
+            border: `1px solid ${UI_COLORS.secondaryBorder}`,
             borderRadius: 12,
             padding: "8px 0",
             minWidth: 200,
@@ -157,7 +157,7 @@ function ThemeDropdown({
                 border: "none",
                 cursor: "pointer",
                 fontSize: 14,
-                color: "#0f1419",
+                color: UI_COLORS.text,
                 textAlign: "left",
               }}
             >
@@ -179,7 +179,7 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
   const labelStyle: React.CSSProperties = {
     fontSize: 13,
     fontWeight: 500,
-    color: "#536471",
+    color: UI_COLORS.textMuted,
     marginBottom: 6,
   };
 
@@ -231,10 +231,10 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
                 padding: "6px 14px",
                 fontSize: 13,
                 fontWeight: settings.padding === p ? 600 : 400,
-                background: settings.padding === p ? "#1d9bf0" : "transparent",
-                color: settings.padding === p ? "#fff" : "#536471",
-                border: "1px solid #e5e5e5",
-                borderLeft: i === 0 ? "1px solid #e5e5e5" : "none",
+                background: settings.padding === p ? UI_COLORS.primary : "transparent",
+                color: settings.padding === p ? UI_COLORS.white : UI_COLORS.textMuted,
+                border: `1px solid ${UI_COLORS.secondaryBorder}`,
+                borderLeft: i === 0 ? `1px solid ${UI_COLORS.secondaryBorder}` : "none",
                 borderRadius:
                   i === 0
                     ? "8px 0 0 8px"

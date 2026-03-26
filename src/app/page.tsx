@@ -8,7 +8,7 @@ import { ControlsToolbar } from "@/components/controls-toolbar";
 import { ExportButton } from "@/components/export-button";
 import { AboutModal } from "@/components/about-modal";
 import { useTweet } from "@/hooks/use-tweet";
-import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
+import { DEFAULT_SETTINGS, UI_COLORS, type CustomSettings } from "@/lib/themes";
 
 const DEFAULT_TWEET_URL = "https://x.com/naval/status/2036166794189349187";
 
@@ -35,15 +35,15 @@ export default function Home() {
       <header
         style={{
           padding: "12px 24px",
-          borderBottom: "1px solid #e5e5e5",
-          background: "#fff",
+          borderBottom: `1px solid ${UI_COLORS.secondaryBorder}`,
+          background: UI_COLORS.white,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <h1 style={{ fontSize: 18, fontWeight: 700, color: "#0f1419" }}>
-          Tweet to Image
+        <h1>
+          <img src="/logo.svg" alt="Plume" height={18} />
         </h1>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <button
@@ -57,7 +57,7 @@ export default function Home() {
               cursor: "pointer",
               fontSize: 14,
               fontWeight: 500,
-              color: "#536471",
+              color: UI_COLORS.textMuted,
               padding: "8px 0",
             }}
           >
@@ -115,7 +115,7 @@ export default function Home() {
           !loading && (
             <p
               style={{
-                color: "#536471",
+                color: UI_COLORS.textMuted,
                 fontSize: 15,
                 marginTop: 64,
               }}
@@ -136,8 +136,8 @@ export default function Home() {
         >
           <div
             style={{
-              background: "#fff",
-              border: "1px solid #e5e5e5",
+              background: UI_COLORS.white,
+              border: `1px solid ${UI_COLORS.secondaryBorder}`,
               borderBottom: "none",
               borderRadius: "16px 16px 0 0",
               padding: "20px 32px",
