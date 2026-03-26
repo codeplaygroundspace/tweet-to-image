@@ -98,12 +98,21 @@ export default function Home() {
       {tweet && (
         <div
           style={{
-            borderTop: "1px solid #e5e5e5",
-            background: "#fff",
-            padding: "16px 24px",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
-          <ControlsToolbar settings={settings} onChange={setSettings} />
+          <div
+            style={{
+              background: "#fff",
+              border: "1px solid #e5e5e5",
+              borderBottom: "none",
+              borderRadius: "16px 16px 0 0",
+              padding: "20px 32px",
+            }}
+          >
+            <ControlsToolbar settings={settings} onChange={setSettings} />
+          </div>
         </div>
       )}
     </div>

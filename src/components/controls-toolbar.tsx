@@ -19,9 +19,9 @@ function Toggle({
     <button
       onClick={() => onChange(!checked)}
       style={{
-        width: 44,
-        height: 24,
-        borderRadius: 12,
+        width: 36,
+        height: 20,
+        borderRadius: 10,
         border: "none",
         background: checked ? "#1d9bf0" : "#ccc",
         cursor: "pointer",
@@ -33,15 +33,15 @@ function Toggle({
     >
       <div
         style={{
-          width: 18,
-          height: 18,
-          borderRadius: 9,
+          width: 14,
+          height: 14,
+          borderRadius: 7,
           background: "#fff",
           position: "absolute",
           top: 3,
-          left: checked ? 23 : 3,
+          left: checked ? 19 : 3,
           transition: "left 0.2s",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
         }}
       />
     </button>
@@ -177,12 +177,10 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
   }
 
   const labelStyle: React.CSSProperties = {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 500,
     color: "#536471",
     marginBottom: 6,
-    textTransform: "uppercase",
-    letterSpacing: "0.04em",
   };
 
   return (
@@ -233,7 +231,7 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
                 padding: "6px 14px",
                 fontSize: 13,
                 fontWeight: settings.padding === p ? 600 : 400,
-                background: settings.padding === p ? "#0f1419" : "transparent",
+                background: settings.padding === p ? "#1d9bf0" : "transparent",
                 color: settings.padding === p ? "#fff" : "#536471",
                 border: "1px solid #e5e5e5",
                 borderLeft: i === 0 ? "1px solid #e5e5e5" : "none",
@@ -264,7 +262,7 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
                 padding: "6px 14px",
                 fontSize: 13,
                 fontWeight: settings.scale === s ? 600 : 400,
-                background: settings.scale === s ? "#0f1419" : "transparent",
+                background: settings.scale === s ? "#1d9bf0" : "transparent",
                 color: settings.scale === s ? "#fff" : "#536471",
                 border: "1px solid #e5e5e5",
                 borderLeft: i === 0 ? "1px solid #e5e5e5" : "none",
