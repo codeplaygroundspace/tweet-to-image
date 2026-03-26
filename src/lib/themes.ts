@@ -7,8 +7,8 @@ export interface ThemePreset {
 }
 
 export const THEME_PRESETS: ThemePreset[] = [
-  { id: "gradient-purple", name: "Purple Haze", tweetMode: "light", background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", dotColor: "#764ba2" },
-  { id: "gradient-sunset", name: "Sunset", tweetMode: "light", background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", dotColor: "#f5576c" },
+  { id: "gradient-dune", name: "Dune", tweetMode: "light", background: "linear-gradient(135deg, #e8c47c 0%, #d4956a 100%)", dotColor: "#d4956a" },
+  { id: "gradient-ember", name: "Ember", tweetMode: "light", background: "linear-gradient(135deg, #f0a05e 0%, #c75d3a 100%)", dotColor: "#c75d3a" },
   { id: "gradient-ocean", name: "Ocean", tweetMode: "light", background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", dotColor: "#4facfe" },
   { id: "gradient-mint", name: "Mint", tweetMode: "light", background: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", dotColor: "#43e97b" },
   { id: "gradient-peach", name: "Peach", tweetMode: "light", background: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", dotColor: "#fcb69f" },
@@ -18,7 +18,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   { id: "transparent", name: "Transparent", tweetMode: "light", background: "transparent", dotColor: "transparent" },
 ];
 
-export const DEFAULT_THEME = THEME_PRESETS[0];
+export const DEFAULT_THEME = THEME_PRESETS.find((t) => t.id === "clean-white")!;
 
 /** App-wide UI color tokens (not tweet card colors) */
 export const UI_COLORS = {

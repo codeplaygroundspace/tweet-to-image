@@ -1,0 +1,40 @@
+{
+  "date": "2026-03-26",
+  "window": "7d",
+  "metrics": {
+    "commits": 34,
+    "contributors": 1,
+    "prs_merged": 4,
+    "insertions": 2888,
+    "deletions": 464,
+    "net_loc": 2424,
+    "test_loc": 174,
+    "test_ratio": 0.06,
+    "active_days": 1,
+    "sessions": 2,
+    "deep_sessions": 1,
+    "avg_session_minutes": 46,
+    "loc_per_session_hour": 1600,
+    "feat_pct": 0.63,
+    "fix_pct": 0.10,
+    "peak_hour": 11,
+    "ai_assisted_commits": 0
+  },
+  "authors": {
+    "codeplaygroundspace": {
+      "commits": 30,
+      "insertions": 2888,
+      "deletions": 464,
+      "test_ratio": 0.06,
+      "top_area": "src/components/"
+    }
+  },
+  "streak_days": 1,
+  "tweetable": "Week of Mar 19: 34 commits, 2.9k LOC, 4 PRs, built entire app from scratch in one day | Streak: 1d",
+  "test_health": {
+    "total_test_files": 3,
+    "tests_added_this_period": 3,
+    "regression_test_commits": 0,
+    "test_files_changed": 3
+  }
+}

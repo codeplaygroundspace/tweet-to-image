@@ -15,6 +15,7 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
   const [open, setOpen] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [hovered, setHovered] = useState(false);
+  const [chevronHovered, setChevronHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,9 +79,10 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
             display: "flex",
             alignItems: "center",
             gap: 8,
-            background: hovered ? UI_COLORS.primaryHover : UI_COLORS.primary,
-            color: UI_COLORS.white,
-            border: "none",
+            background: hovered ? "#f0f0f0" : UI_COLORS.white,
+            color: UI_COLORS.text,
+            border: `1px solid ${UI_COLORS.secondaryBorder}`,
+            borderRight: "none",
             borderRadius: "9999px 0 0 9999px",
             padding: "8px 14px",
             fontSize: 14,
@@ -98,31 +100,48 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
         </button>
         <button
           onClick={() => setOpen(!open)}
+          onMouseEnter={() => setChevronHovered(true)}
+          onMouseLeave={() => setChevronHovered(false)}
           style={{
             display: "flex",
             alignItems: "center",
-            background: UI_COLORS.primaryDark,
-            color: UI_COLORS.white,
-            border: "none",
-            borderLeft: "1px solid rgba(255,255,255,0.2)",
+            justifyContent: "center",
+            background: UI_COLORS.white,
+            color: UI_COLORS.textMuted,
+            border: `1px solid ${UI_COLORS.secondaryBorder}`,
+            borderLeft: "none",
             borderRadius: "0 9999px 9999px 0",
-            padding: "8px 10px",
+            padding: "4px 10px",
             cursor: "pointer",
+            position: "relative",
           }}
         >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: chevronHovered ? UI_COLORS.secondaryBg : "transparent",
+              transition: "background 0.15s",
+            }}
           >
-            <path d="M3 4.5L6 7.5L9 4.5" />
-          </svg>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}
+            >
+              <path d="M3 4.5L6 7.5L9 4.5" />
+            </svg>
+          </span>
         </button>
       </div>
 

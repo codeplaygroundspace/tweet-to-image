@@ -85,9 +85,9 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           style={{
-            background: disabled ? UI_COLORS.secondaryBg : "#f2f2f2",
-            color: disabled ? UI_COLORS.textLight : hovered ? UI_COLORS.primary : UI_COLORS.secondary,
-            border: `1px solid ${disabled ? UI_COLORS.secondaryBorder : UI_COLORS.secondaryBorder}`,
+            background: disabled ? UI_COLORS.secondaryBg : hovered ? UI_COLORS.primaryHover : UI_COLORS.primary,
+            color: disabled ? UI_COLORS.textLight : UI_COLORS.white,
+            border: "none",
             borderRadius: 9999,
             padding: "8px 20px",
             fontSize: 14,
@@ -95,7 +95,7 @@ export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInp
             cursor: disabled ? "not-allowed" : "pointer",
             whiteSpace: "nowrap",
             opacity: disabled ? 0.6 : 1,
-            transition: "color 0.15s, border-color 0.15s",
+            transition: "background 0.15s",
           }}
         >
           {loading ? "Loading..." : "Generate"}

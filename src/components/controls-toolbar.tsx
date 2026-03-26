@@ -34,6 +34,8 @@ function Toggle({
 }) {
   return (
     <button
+      role="switch"
+      aria-checked={checked}
       onClick={() => onChange(!checked)}
       style={{
         width: 36,
