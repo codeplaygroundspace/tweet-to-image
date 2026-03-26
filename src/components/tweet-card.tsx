@@ -1,6 +1,7 @@
 import React from "react";
 import type { TweetData } from "@/lib/tweet-types";
 import TweetMedia from "@/components/tweet-media";
+import QuotedTweet from "@/components/quoted-tweet";
 
 function formatCount(n: number): string {
   if (n >= 1_000_000) {
@@ -133,6 +134,13 @@ export default function TweetCard({ tweet, mode }: TweetCardProps) {
       {tweet.media && tweet.media.length > 0 && (
         <div style={{ marginBottom: 12 }}>
           <TweetMedia media={tweet.media} borderColor={colors.border} />
+        </div>
+      )}
+
+      {/* Quoted tweet */}
+      {tweet.quoted_tweet && (
+        <div style={{ marginBottom: 12 }}>
+          <QuotedTweet tweet={tweet.quoted_tweet} mode={mode} />
         </div>
       )}
 
