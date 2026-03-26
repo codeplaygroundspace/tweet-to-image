@@ -1,11 +1,17 @@
 import { toPng, toSvg } from "html-to-image";
 
-export async function exportToPng(element: HTMLElement, scale: number, filename: string): Promise<void> {
-  const dataUrl = await toPng(element, { pixelRatio: scale, cacheBust: true });
+function downloadDataUrl(dataUrl: string, filename: string) {
   const link = document.createElement("a");
   link.download = filename;
   link.href = dataUrl;
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
+}
+
+export async function exportToPng(element: HTMLElement, scale: number, filename: string): Promise<void> {
+  const dataUrl = await toPng(element, { pixelRatio: scale, cacheBust: true });
+  downloadDataUrl(dataUrl, filename);
 }
 
 export async function copyToClipboard(element: HTMLElement, scale: number): Promise<void> {
@@ -17,8 +23,5 @@ export async function copyToClipboard(element: HTMLElement, scale: number): Prom
 
 export async function exportToSvg(element: HTMLElement, filename: string): Promise<void> {
   const dataUrl = await toSvg(element, { cacheBust: true });
-  const link = document.createElement("a");
-  link.download = filename;
-  link.href = dataUrl;
-  link.click();
+  downloadDataUrl(dataUrl, filename);
 }
