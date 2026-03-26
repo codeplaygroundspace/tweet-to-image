@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { UrlInput } from "@/components/url-input";
 import TweetCard from "@/components/tweet-card";
 import { PreviewFrame } from "@/components/preview-frame";
-import { ControlsSidebar } from "@/components/controls-sidebar";
+import { ControlsToolbar } from "@/components/controls-toolbar";
 import { ExportBar } from "@/components/export-bar";
 import { useTweet } from "@/hooks/use-tweet";
 import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
@@ -42,7 +42,7 @@ export default function Home() {
         </h1>
       </header>
 
-      {/* Main content */}
+      {/* Main content — centered */}
       <main
         style={{
           flex: 1,
@@ -50,58 +50,34 @@ export default function Home() {
           flexDirection: "column",
           alignItems: "center",
           padding: "32px 16px",
-          gap: 32,
+          gap: 24,
         }}
       >
         {/* URL input */}
         <UrlInput onSubmit={handleSubmit} loading={loading} error={error} defaultValue={DEFAULT_TWEET_URL} />
 
-        {/* Preview + Controls */}
+        {/* Preview — centered */}
         {tweet ? (
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
-              gap: 24,
-              maxWidth: 900,
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              maxWidth: 600,
               width: "100%",
             }}
           >
-            {/* Left: Preview + Export */}
-            <div
-              style={{
-                flex: 1,
-                minWidth: 300,
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-              }}
-            >
-              <PreviewFrame ref={frameRef} settings={settings}>
-                <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
-              </PreviewFrame>
+            <PreviewFrame ref={frameRef} settings={settings}>
+              <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
+            </PreviewFrame>
 
-              <ExportBar
-                frameRef={frameRef}
-                scale={settings.scale}
-                tweetId={tweet.id}
-                tweetUrl={tweetUrl}
-              />
-            </div>
-
-            {/* Right: Controls */}
-            <div
-              style={{
-                width: 260,
-                background: "#fff",
-                border: "1px solid #e5e5e5",
-                borderRadius: 12,
-                padding: 20,
-                alignSelf: "flex-start",
-              }}
-            >
-              <ControlsSidebar settings={settings} onChange={setSettings} />
-            </div>
+            <ExportBar
+              frameRef={frameRef}
+              scale={settings.scale}
+              tweetId={tweet.id}
+              tweetUrl={tweetUrl}
+            />
           </div>
         ) : (
           !loading && (
@@ -117,6 +93,19 @@ export default function Home() {
           )
         )}
       </main>
+
+      {/* Bottom toolbar */}
+      {tweet && (
+        <div
+          style={{
+            borderTop: "1px solid #e5e5e5",
+            background: "#fff",
+            padding: "16px 24px",
+          }}
+        >
+          <ControlsToolbar settings={settings} onChange={setSettings} />
+        </div>
+      )}
     </div>
   );
 }
