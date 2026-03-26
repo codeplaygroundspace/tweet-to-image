@@ -128,11 +128,12 @@ function ThemeDropdown({
             bottom: "100%",
             left: 0,
             marginBottom: 6,
-            background: "#1a1a1a",
+            background: "#fff",
+            border: "1px solid #e5e5e5",
             borderRadius: 12,
             padding: "8px 0",
             minWidth: 200,
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
             zIndex: 100,
           }}
         >
@@ -152,11 +153,11 @@ function ThemeDropdown({
                 gap: 12,
                 width: "100%",
                 padding: "10px 16px",
-                background: settings.theme.id === preset.id ? "rgba(255,255,255,0.1)" : "transparent",
+                background: settings.theme.id === preset.id ? "#f0f2f5" : "transparent",
                 border: "none",
                 cursor: "pointer",
                 fontSize: 14,
-                color: "#e7e9ea",
+                color: "#0f1419",
                 textAlign: "left",
               }}
             >
