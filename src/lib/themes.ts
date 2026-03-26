@@ -20,6 +20,22 @@ export const THEME_PRESETS: ThemePreset[] = [
 
 export const DEFAULT_THEME = THEME_PRESETS[0];
 
+/** App-wide UI color tokens (not tweet card colors) */
+export const UI_COLORS = {
+  primary: "#576f00",
+  primaryHover: "rgba(87,111,0,0.9)",
+  primaryDark: "#4a5f00",
+  secondary: "#536471",
+  secondaryHover: "rgba(83,100,113,0.9)",
+  secondaryBg: "rgb(247, 247, 242)",
+  secondaryBorder: "rgb(213, 213, 210)",
+  text: "#0f1419",
+  textMuted: "rgb(114, 114, 110)",
+  textLight: "#536471",
+  error: "#e0245e",
+  white: "#fff",
+};
+
 export interface CustomSettings {
   theme: ThemePreset;
   customBackground: string | null;

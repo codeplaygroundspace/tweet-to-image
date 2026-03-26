@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { exportToPng, exportToSvg, copyToClipboard } from "@/lib/export";
+import { UI_COLORS } from "@/lib/themes";
 
 interface ExportButtonProps {
   frameRef: RefObject<HTMLDivElement | null>;
@@ -13,6 +14,7 @@ interface ExportButtonProps {
 export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: ExportButtonProps) {
   const [open, setOpen] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [hovered, setHovered] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
     border: "none",
     cursor: "pointer",
     fontSize: 15,
-    color: "#0f1419",
+    color: UI_COLORS.text,
     textAlign: "left",
     whiteSpace: "nowrap",
   };
@@ -70,18 +72,21 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
       <div style={{ display: "flex", alignItems: "stretch" }}>
         <button
           onClick={handleDownloadPng}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
             display: "flex",
             alignItems: "center",
             gap: 8,
-            background: "#1d9bf0",
-            color: "#fff",
+            background: hovered ? UI_COLORS.primaryHover : UI_COLORS.primary,
+            color: UI_COLORS.white,
             border: "none",
-            borderRadius: "8px 0 0 8px",
+            borderRadius: "9999px 0 0 9999px",
             padding: "8px 14px",
             fontSize: 14,
             fontWeight: 600,
             cursor: "pointer",
+            transition: "background 0.15s",
           }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -96,11 +101,11 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
           style={{
             display: "flex",
             alignItems: "center",
-            background: "#1a8cd8",
-            color: "#fff",
+            background: UI_COLORS.primaryDark,
+            color: UI_COLORS.white,
             border: "none",
             borderLeft: "1px solid rgba(255,255,255,0.2)",
-            borderRadius: "0 8px 8px 0",
+            borderRadius: "0 9999px 9999px 0",
             padding: "8px 10px",
             cursor: "pointer",
           }}
@@ -128,8 +133,8 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
             top: "100%",
             right: 0,
             marginTop: 8,
-            background: "#fff",
-            border: "1px solid #e5e5e5",
+            background: UI_COLORS.white,
+            border: `1px solid ${UI_COLORS.secondaryBorder}`,
             borderRadius: 14,
             padding: "6px 0",
             boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
@@ -138,7 +143,7 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
           }}
         >
           <button onClick={handleDownloadPng} style={itemStyle}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#536471" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={UI_COLORS.textLight} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" />
               <path d="M8 12l4 4 4-4" />
               <line x1="12" y1="8" x2="12" y2="16" />
@@ -146,7 +151,7 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
             Save PNG
           </button>
           <button onClick={handleDownloadSvg} style={itemStyle}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#536471" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={UI_COLORS.textLight} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" />
               <path d="M8 12l4 4 4-4" />
               <line x1="12" y1="8" x2="12" y2="16" />
@@ -154,7 +159,7 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
             Save SVG
           </button>
           <button onClick={handleCopy} style={itemStyle}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#536471" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={UI_COLORS.textLight} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <rect x="9" y="9" width="13" height="13" rx="2" />
               <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
             </svg>
@@ -162,19 +167,19 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
           </button>
 
           {/* Divider */}
-          <div style={{ height: 1, background: "#e5e5e5", margin: "6px 0" }} />
+          <div style={{ height: 1, background: UI_COLORS.secondaryBorder, margin: "6px 0" }} />
 
           {/* Size */}
           <div style={{ padding: "8px 20px" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#536471" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={UI_COLORS.textLight} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="15 3 21 3 21 9" />
                   <polyline points="9 21 3 21 3 15" />
                   <line x1="21" y1="3" x2="14" y2="10" />
                   <line x1="3" y1="21" x2="10" y2="14" />
                 </svg>
-                <span style={{ fontSize: 15, color: "#0f1419" }}>Size</span>
+                <span style={{ fontSize: 15, color: UI_COLORS.text }}>Size</span>
               </div>
               <div style={{ display: "flex", gap: 0 }}>
                 {([1, 2, 4] as const).map((s, i) => (
@@ -185,10 +190,10 @@ export function ExportButton({ frameRef, scale, onScaleChange, tweetId }: Export
                       padding: "4px 10px",
                       fontSize: 13,
                       fontWeight: scale === s ? 600 : 400,
-                      background: scale === s ? "#1d9bf0" : "transparent",
-                      color: scale === s ? "#fff" : "#536471",
-                      border: "1px solid #e5e5e5",
-                      borderLeft: i === 0 ? "1px solid #e5e5e5" : "none",
+                      background: scale === s ? UI_COLORS.primary : "transparent",
+                      color: scale === s ? UI_COLORS.white : UI_COLORS.textLight,
+                      border: `1px solid ${UI_COLORS.secondaryBorder}`,
+                      borderLeft: i === 0 ? `1px solid ${UI_COLORS.secondaryBorder}` : "none",
                       borderRadius:
                         i === 0
                           ? "6px 0 0 6px"
