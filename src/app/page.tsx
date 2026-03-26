@@ -111,18 +111,53 @@ export default function Home() {
               <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
             </PreviewFrame>
           </div>
+        ) : loading ? (
+          <div
+            style={{
+              maxWidth: 600,
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+              padding: "32px 0",
+            }}
+          >
+            <div style={{ width: 500, margin: "0 auto", background: UI_COLORS.white, borderRadius: 16, padding: 16, border: `1px solid ${UI_COLORS.secondaryBorder}` }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                <div style={{ width: 48, height: 48, borderRadius: "50%", background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div style={{ width: 120, height: 14, borderRadius: 4, background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+                  <div style={{ width: 80, height: 12, borderRadius: 4, background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ width: "100%", height: 14, borderRadius: 4, background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+                <div style={{ width: "80%", height: 14, borderRadius: 4, background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+                <div style={{ width: "60%", height: 14, borderRadius: 4, background: UI_COLORS.secondaryBg, animation: "pulse 1.5s ease-in-out infinite" }} />
+              </div>
+            </div>
+          </div>
         ) : (
-          !loading && (
-            <p
-              style={{
-                color: UI_COLORS.textMuted,
-                fontSize: 15,
-                marginTop: 64,
-              }}
-            >
-              Paste a tweet URL above to get started
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 12,
+              marginTop: 48,
+              color: UI_COLORS.textMuted,
+            }}
+          >
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke={UI_COLORS.secondaryBorder} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="M21 15l-5-5L5 21" />
+            </svg>
+            <p style={{ fontSize: 15 }}>Paste a post URL above to create an image</p>
+            <p style={{ fontSize: 13, color: UI_COLORS.secondaryBorder }}>
+              Works with x.com and twitter.com links
             </p>
-          )
+          </div>
         )}
       </main>
 
@@ -141,6 +176,7 @@ export default function Home() {
               borderBottom: "none",
               borderRadius: "16px 16px 0 0",
               padding: "20px 32px",
+              boxShadow: "0 -4px 20px rgba(0,0,0,0.06)",
             }}
           >
             <ControlsToolbar settings={settings} onChange={setSettings} />
