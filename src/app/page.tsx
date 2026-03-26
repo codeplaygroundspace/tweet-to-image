@@ -6,6 +6,7 @@ import TweetCard from "@/components/tweet-card";
 import { PreviewFrame } from "@/components/preview-frame";
 import { ControlsToolbar } from "@/components/controls-toolbar";
 import { ExportButton } from "@/components/export-button";
+import { AboutModal } from "@/components/about-modal";
 import { useTweet } from "@/hooks/use-tweet";
 import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
 
@@ -16,6 +17,7 @@ export default function Home() {
   const [settings, setSettings] = useState<CustomSettings>(DEFAULT_SETTINGS);
   const [tweetUrl, setTweetUrl] = useState(DEFAULT_TWEET_URL);
   const frameRef = useRef<HTMLDivElement>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   useEffect(() => {
     fetchTweet(DEFAULT_TWEET_URL);
@@ -43,7 +45,30 @@ export default function Home() {
         <h1 style={{ fontSize: 18, fontWeight: 700, color: "#0f1419" }}>
           Tweet to Image
         </h1>
-        {tweet && (
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <button
+            onClick={() => setAboutOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#536471",
+              padding: "8px 0",
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            About
+          </button>
+          {tweet && (
           <ExportButton
             frameRef={frameRef}
             scale={settings.scale}
@@ -51,7 +76,10 @@ export default function Home() {
             tweetId={tweet.id}
           />
         )}
+        </div>
       </header>
+
+      <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
 
       {/* Main content — centered */}
       <main
