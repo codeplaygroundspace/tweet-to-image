@@ -1,5 +1,6 @@
 import React from "react";
 import type { TweetData } from "@/lib/tweet-types";
+import TweetMedia from "@/components/tweet-media";
 
 function formatCount(n: number): string {
   if (n >= 1_000_000) {
@@ -127,6 +128,13 @@ export default function TweetCard({ tweet, mode }: TweetCardProps) {
       >
         {tweet.text}
       </div>
+
+      {/* Media */}
+      {tweet.media && tweet.media.length > 0 && (
+        <div style={{ marginBottom: 12 }}>
+          <TweetMedia media={tweet.media} borderColor={colors.border} />
+        </div>
+      )}
 
       {/* Timestamp */}
       <div
