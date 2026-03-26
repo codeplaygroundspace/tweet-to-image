@@ -1,15 +1,24 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 interface UrlInputProps {
   onSubmit: (url: string) => void;
   loading: boolean;
   error: string | null;
+  defaultValue?: string;
 }
 
-export function UrlInput({ onSubmit, loading, error }: UrlInputProps) {
+export function UrlInput({ onSubmit, loading, error, defaultValue = "" }: UrlInputProps) {
   const [url, setUrl] = useState("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (defaultValue && !mounted) {
+      setUrl(defaultValue);
+      setMounted(true);
+    }
+  }, [defaultValue, mounted]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UrlInput } from "@/components/url-input";
 import TweetCard from "@/components/tweet-card";
 import { PreviewFrame } from "@/components/preview-frame";
@@ -9,11 +9,18 @@ import { ExportBar } from "@/components/export-bar";
 import { useTweet } from "@/hooks/use-tweet";
 import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
 
+const DEFAULT_TWEET_URL = "https://x.com/naval/status/2036166794189349187";
+
 export default function Home() {
   const { tweet, loading, error, fetchTweet } = useTweet();
   const [settings, setSettings] = useState<CustomSettings>(DEFAULT_SETTINGS);
-  const [tweetUrl, setTweetUrl] = useState("");
+  const [tweetUrl, setTweetUrl] = useState(DEFAULT_TWEET_URL);
   const frameRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetchTweet(DEFAULT_TWEET_URL);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleSubmit(url: string) {
     setTweetUrl(url);
@@ -47,7 +54,7 @@ export default function Home() {
         }}
       >
         {/* URL input */}
-        <UrlInput onSubmit={handleSubmit} loading={loading} error={error} />
+        <UrlInput onSubmit={handleSubmit} loading={loading} error={error} defaultValue={DEFAULT_TWEET_URL} />
 
         {/* Preview + Controls */}
         {tweet ? (
