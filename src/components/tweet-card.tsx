@@ -144,6 +144,63 @@ export default function TweetCard({ tweet, mode }: TweetCardProps) {
         </div>
       )}
 
+      {/* Poll */}
+      {tweet.poll && (
+        <div style={{ marginBottom: 12 }}>
+          {tweet.poll.options.map((option, i) => (
+            <div
+              key={i}
+              style={{
+                position: "relative",
+                borderRadius: 4,
+                padding: "8px 12px",
+                marginBottom: 4,
+                overflow: "hidden",
+              }}
+            >
+              {/* Background bar */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: "100%",
+                  width: `${option.percentage}%`,
+                  backgroundColor: isDark
+                    ? "rgba(29,155,240,0.2)"
+                    : "rgba(29,155,240,0.1)",
+                  borderRadius: 4,
+                }}
+              />
+              <div
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  fontSize: 14,
+                }}
+              >
+                <span style={{ color: colors.text }}>{option.label}</span>
+                <span
+                  style={{ color: colors.secondary, fontWeight: 700 }}
+                >
+                  {option.percentage}%
+                </span>
+              </div>
+            </div>
+          ))}
+          <div
+            style={{
+              fontSize: 13,
+              color: colors.secondary,
+              marginTop: 8,
+            }}
+          >
+            {formatCount(tweet.poll.total_votes)} votes
+          </div>
+        </div>
+      )}
+
       {/* Timestamp */}
       <div
         style={{
