@@ -1,6 +1,10 @@
 import React from "react";
 import type { TweetMediaItem } from "@/lib/tweet-types";
 
+function proxyUrl(url: string): string {
+  return `/api/proxy?url=${encodeURIComponent(url)}`;
+}
+
 interface TweetMediaProps {
   media: TweetMediaItem[];
   borderColor: string;
@@ -49,8 +53,7 @@ function MediaCell({
       }}
     >
       <img
-        src={item.url}
-        crossOrigin="anonymous"
+        src={proxyUrl(item.url)}
         alt=""
         style={{
           width: "100%",

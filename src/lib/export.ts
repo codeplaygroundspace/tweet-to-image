@@ -1,11 +1,17 @@
-import { toPng } from "html-to-image";
+import { toPng, toSvg } from "html-to-image";
 
-export async function exportToPng(element: HTMLElement, scale: number, filename: string): Promise<void> {
-  const dataUrl = await toPng(element, { pixelRatio: scale, cacheBust: true });
+function downloadDataUrl(dataUrl: string, filename: string) {
   const link = document.createElement("a");
   link.download = filename;
   link.href = dataUrl;
+  document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
+}
+
+export async function exportToPng(element: HTMLElement, scale: number, filename: string): Promise<void> {
+  const dataUrl = await toPng(element, { pixelRatio: scale, cacheBust: true });
+  downloadDataUrl(dataUrl, filename);
 }
 
 export async function copyToClipboard(element: HTMLElement, scale: number): Promise<void> {
@@ -15,13 +21,7 @@ export async function copyToClipboard(element: HTMLElement, scale: number): Prom
   await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
 }
 
-export function shareToLinkedIn(text: string, url?: string): void {
-  const params = new URLSearchParams();
-  if (url) params.set("url", url);
-  if (text) params.set("text", text);
-  window.open(`https://www.linkedin.com/sharing/share-offsite/?${params.toString()}`, "_blank");
-}
-
-export function copyLink(tweetUrl: string): void {
-  navigator.clipboard.writeText(tweetUrl);
+export async function exportToSvg(element: HTMLElement, filename: string): Promise<void> {
+  const dataUrl = await toSvg(element, { cacheBust: true });
+  downloadDataUrl(dataUrl, filename);
 }

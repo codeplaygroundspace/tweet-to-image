@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { UrlInput } from "@/components/url-input";
 import TweetCard from "@/components/tweet-card";
 import { PreviewFrame } from "@/components/preview-frame";
-import { ControlsSidebar } from "@/components/controls-sidebar";
-import { ExportBar } from "@/components/export-bar";
+import { ControlsToolbar } from "@/components/controls-toolbar";
+import { ExportButton } from "@/components/export-button";
+import { AboutModal } from "@/components/about-modal";
 import { useTweet } from "@/hooks/use-tweet";
 import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
 
@@ -16,6 +17,7 @@ export default function Home() {
   const [settings, setSettings] = useState<CustomSettings>(DEFAULT_SETTINGS);
   const [tweetUrl, setTweetUrl] = useState(DEFAULT_TWEET_URL);
   const frameRef = useRef<HTMLDivElement>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   useEffect(() => {
     fetchTweet(DEFAULT_TWEET_URL);
@@ -35,14 +37,51 @@ export default function Home() {
           padding: "12px 24px",
           borderBottom: "1px solid #e5e5e5",
           background: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <h1 style={{ fontSize: 18, fontWeight: 700, color: "#0f1419" }}>
           Tweet to Image
         </h1>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <button
+            onClick={() => setAboutOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontSize: 14,
+              fontWeight: 500,
+              color: "#536471",
+              padding: "8px 0",
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            About
+          </button>
+          {tweet && (
+          <ExportButton
+            frameRef={frameRef}
+            scale={settings.scale}
+            onScaleChange={(scale) => setSettings((s) => ({ ...s, scale }))}
+            tweetId={tweet.id}
+          />
+        )}
+        </div>
       </header>
 
-      {/* Main content */}
+      <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
+
+      {/* Main content — centered */}
       <main
         style={{
           flex: 1,
@@ -50,58 +89,27 @@ export default function Home() {
           flexDirection: "column",
           alignItems: "center",
           padding: "32px 16px",
-          gap: 32,
+          gap: 24,
         }}
       >
         {/* URL input */}
         <UrlInput onSubmit={handleSubmit} loading={loading} error={error} defaultValue={DEFAULT_TWEET_URL} />
 
-        {/* Preview + Controls */}
+        {/* Preview — centered */}
         {tweet ? (
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
-              gap: 24,
-              maxWidth: 900,
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 16,
+              maxWidth: 600,
               width: "100%",
             }}
           >
-            {/* Left: Preview + Export */}
-            <div
-              style={{
-                flex: 1,
-                minWidth: 300,
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-              }}
-            >
-              <PreviewFrame ref={frameRef} settings={settings}>
-                <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
-              </PreviewFrame>
-
-              <ExportBar
-                frameRef={frameRef}
-                scale={settings.scale}
-                tweetId={tweet.id}
-                tweetUrl={tweetUrl}
-              />
-            </div>
-
-            {/* Right: Controls */}
-            <div
-              style={{
-                width: 260,
-                background: "#fff",
-                border: "1px solid #e5e5e5",
-                borderRadius: 12,
-                padding: 20,
-                alignSelf: "flex-start",
-              }}
-            >
-              <ControlsSidebar settings={settings} onChange={setSettings} />
-            </div>
+            <PreviewFrame ref={frameRef} settings={settings}>
+              <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
+            </PreviewFrame>
           </div>
         ) : (
           !loading && (
@@ -117,6 +125,28 @@ export default function Home() {
           )
         )}
       </main>
+
+      {/* Bottom toolbar */}
+      {tweet && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              border: "1px solid #e5e5e5",
+              borderBottom: "none",
+              borderRadius: "16px 16px 0 0",
+              padding: "20px 32px",
+            }}
+          >
+            <ControlsToolbar settings={settings} onChange={setSettings} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

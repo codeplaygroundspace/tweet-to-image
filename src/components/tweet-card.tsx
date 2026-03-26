@@ -3,6 +3,10 @@ import type { TweetData } from "@/lib/tweet-types";
 import TweetMedia from "@/components/tweet-media";
 import QuotedTweet from "@/components/quoted-tweet";
 
+function proxyUrl(url: string): string {
+  return `/api/proxy?url=${encodeURIComponent(url)}`;
+}
+
 function formatCount(n: number): string {
   if (n >= 1_000_000) {
     return (n / 1_000_000).toFixed(n % 1_000_000 === 0 ? 0 : 1).replace(/\.0$/, "") + "M";
@@ -78,9 +82,8 @@ export default function TweetCard({ tweet, mode }: TweetCardProps) {
       {/* Header: avatar + name + handle */}
       <div style={{ display: "flex", alignItems: "center", marginBottom: 8 }}>
         <img
-          src={tweet.user.profile_image_url_https}
+          src={proxyUrl(tweet.user.profile_image_url_https)}
           alt={tweet.user.name}
-          crossOrigin="anonymous"
           style={{
             width: 48,
             height: 48,
