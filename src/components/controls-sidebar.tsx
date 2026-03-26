@@ -22,7 +22,7 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 24, width: 260 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
       {/* Theme */}
       <section>
         <p style={sectionLabel}>Theme</p>
@@ -30,7 +30,7 @@ export function ControlsSidebar({ settings, onChange }: ControlsSidebarProps) {
           {THEME_PRESETS.map((preset) => (
             <button
               key={preset.id}
-              onClick={() => update({ theme: preset, customBackground: null })}
+              onClick={() => update({ theme: { ...preset, tweetMode: settings.theme.tweetMode }, customBackground: null })}
               title={preset.name}
               style={{
                 width: "100%",
