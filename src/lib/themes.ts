@@ -15,6 +15,7 @@ export const THEME_PRESETS: ThemePreset[] = [
   { id: "gradient-night", name: "Night Sky", tweetMode: "light", background: "linear-gradient(135deg, #0c3483 0%, #a2b6df 100%)", dotColor: "#0c3483" },
   { id: "dark", name: "Dark", tweetMode: "dark", background: "#0a0a0a", dotColor: "#333333" },
   { id: "clean-white", name: "Clean White", tweetMode: "light", background: "#f7f9f9", dotColor: "#e5e5e5" },
+  { id: "transparent", name: "Transparent", tweetMode: "light", background: "transparent", dotColor: "transparent" },
 ];
 
 export const DEFAULT_THEME = THEME_PRESETS[0];

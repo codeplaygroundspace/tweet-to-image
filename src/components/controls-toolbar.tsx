@@ -1,7 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { THEME_PRESETS, type CustomSettings } from "@/lib/themes";
+import { THEME_PRESETS, type CustomSettings, type ThemePreset } from "@/lib/themes";
+
+const checkerboard = "repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 8px 8px";
+
+function ThemeDot({ preset, size = 16 }: { preset: ThemePreset; size?: number }) {
+  return (
+    <span
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        background: preset.id === "transparent" ? checkerboard : preset.dotColor,
+        border: "1px solid rgba(0,0,0,0.1)",
+        flexShrink: 0,
+      }}
+    />
+  );
+}
 
 interface ControlsToolbarProps {
   settings: CustomSettings;
@@ -87,16 +104,7 @@ function ThemeDropdown({
           minWidth: 140,
         }}
       >
-        <span
-          style={{
-            width: 16,
-            height: 16,
-            borderRadius: 8,
-            background: settings.theme.dotColor,
-            border: "1px solid rgba(0,0,0,0.1)",
-            flexShrink: 0,
-          }}
-        />
+        <ThemeDot preset={settings.theme} />
         {settings.theme.name}
         <svg
           width="12"
@@ -152,16 +160,7 @@ function ThemeDropdown({
                 textAlign: "left",
               }}
             >
-              <span
-                style={{
-                  width: 18,
-                  height: 18,
-                  borderRadius: 9,
-                  background: preset.dotColor,
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  flexShrink: 0,
-                }}
-              />
+              <ThemeDot preset={preset} size={18} />
               {preset.name}
             </button>
           ))}
@@ -250,36 +249,6 @@ export function ControlsToolbar({ settings, onChange }: ControlsToolbarProps) {
         </div>
       </div>
 
-      {/* Scale segmented */}
-      <div>
-        <p style={labelStyle}>Scale</p>
-        <div style={{ display: "flex", gap: 0 }}>
-          {([1, 2, 4] as const).map((s, i) => (
-            <button
-              key={s}
-              onClick={() => update({ scale: s })}
-              style={{
-                padding: "6px 14px",
-                fontSize: 13,
-                fontWeight: settings.scale === s ? 600 : 400,
-                background: settings.scale === s ? "#1d9bf0" : "transparent",
-                color: settings.scale === s ? "#fff" : "#536471",
-                border: "1px solid #e5e5e5",
-                borderLeft: i === 0 ? "1px solid #e5e5e5" : "none",
-                borderRadius:
-                  i === 0
-                    ? "8px 0 0 8px"
-                    : i === 2
-                      ? "0 8px 8px 0"
-                      : "0",
-                cursor: "pointer",
-              }}
-            >
-              {s}x
-            </button>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { UrlInput } from "@/components/url-input";
 import TweetCard from "@/components/tweet-card";
 import { PreviewFrame } from "@/components/preview-frame";
 import { ControlsToolbar } from "@/components/controls-toolbar";
-import { ExportBar } from "@/components/export-bar";
+import { ExportButton } from "@/components/export-button";
 import { useTweet } from "@/hooks/use-tweet";
 import { DEFAULT_SETTINGS, type CustomSettings } from "@/lib/themes";
 
@@ -35,11 +35,22 @@ export default function Home() {
           padding: "12px 24px",
           borderBottom: "1px solid #e5e5e5",
           background: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <h1 style={{ fontSize: 18, fontWeight: 700, color: "#0f1419" }}>
           Tweet to Image
         </h1>
+        {tweet && (
+          <ExportButton
+            frameRef={frameRef}
+            scale={settings.scale}
+            onScaleChange={(scale) => setSettings((s) => ({ ...s, scale }))}
+            tweetId={tweet.id}
+          />
+        )}
       </header>
 
       {/* Main content — centered */}
@@ -71,13 +82,6 @@ export default function Home() {
             <PreviewFrame ref={frameRef} settings={settings}>
               <TweetCard tweet={tweet} mode={settings.theme.tweetMode} />
             </PreviewFrame>
-
-            <ExportBar
-              frameRef={frameRef}
-              scale={settings.scale}
-              tweetId={tweet.id}
-              tweetUrl={tweetUrl}
-            />
           </div>
         ) : (
           !loading && (
