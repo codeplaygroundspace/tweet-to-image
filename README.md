@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tweet to Image
+
+Paste a Twitter/X URL, get a beautiful image of that tweet. Customize the background, theme, padding, and export as PNG.
+
+## Features
+
+- Faithful recreation of X's tweet UI (light and dark modes)
+- 6 gradient backgrounds + dark + clean white presets
+- Custom background color picker
+- Adjustable padding, corner radius, shadow
+- Export: download PNG, copy to clipboard, share to LinkedIn
+- 1x / 2x / 4x export scale
+- Loads with an example tweet so you can try it immediately
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Fetches tweet data from Twitter's syndication endpoint (no API key needed), renders it as a React component matching X's native UI, and exports via `html-to-image`.
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 (App Router)
+- TypeScript
+- html-to-image
+- Tailwind CSS
